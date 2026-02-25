@@ -1,0 +1,9 @@
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+# Host *
+#   ServerAliveCountMax 1000
+#   ServerAliveInterval 60
+Host 192.168.100.* 172.21.*
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null

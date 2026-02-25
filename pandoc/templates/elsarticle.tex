@@ -1,0 +1,202 @@
+\documentclass[preprint,review,12pt]{elsarticle}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx} % handle units
+\usepackage{array} % better array/table support
+\usepackage{longtable} % for pandoc tables
+\usepackage{caption} % improve caption format
+\usepackage{float} % place figures and tables where they are defined
+\usepackage{multicol}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{lipsum}
+\usepackage{fontspec} % UTF8
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{xurl}
+\usetikzlibrary{intersections}
+\usepackage[makeroom]{cancel}
+\usepackage{soul} % ==highlights==
+% \usepackage{hyperref}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+
+\makeatletter
+\providecommand{\doi}[1]{%
+  \begingroup
+    \let\bibinfo\@secondoftwo
+    \urlstyle{rm}%
+    \href{http://dx.doi.org/#1}{%
+      doi:\discretionary{}{}{}%
+      \nolinkurl{#1}%
+    }%
+  \endgroup
+}
+\makeatother
+
+% Code highlighting packages
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{framed,mdframed,tcolorbox}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(linestretch)$
+\setstretch{$linestretch$}
+$endif$
+
+% enable code highlighting
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% \renewenvironment{Shaded} {\begin{snugshade}\footnotesize} {\end{snugshade}}
+
+% Check if commands already exist before defining
+% \providecommand{\VerbBar}{|}
+% \providecommand{\VERB}{\Verb[commandchars=\\\{\}]}
+
+% Define code block environment with smaller font
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  commandchars=\\\{\},
+  fontsize=\footnotesize,  % Options: \tiny, \scriptsize, \footnotesize, \small, \normalsize
+  % numbersep=5pt,  % Space between numbers and code
+  % frame=single,   % Uncomment for frame around code
+  % framesep=2mm,   % Space between frame and code
+  % baselinestretch=0.9,  % Reduce line spacing
+}
+
+% enable monospace font customization
+$if(monofont)$
+  % \setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]{$monofont$}
+  \setmonofont[SizeFeatures={Size=10}]{$monofont$}
+$endif$
+
+% blockquote
+\definecolor{blockquote-border}{RGB}{221,221,221}
+\definecolor{blockquote-text}{RGB}{119,119,119}
+\usepackage{mdframed}
+\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,linecolor=blockquote-border,skipabove=\parskip]{customblockquote}
+\renewenvironment{quote}{\begin{customblockquote}\list{}{\rightmargin=0em\leftmargin=0em}%
+\item\relax\color{blockquote-text}\ignorespaces}{\unskip\unskip\endlist\end{customblockquote}}
+
+% Fix for table column specifications
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% Pandoc table compatibility fixes
+\usepackage{calc}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Fix for longtable in elsarticle
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+% Fix table spacing issues
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+
+$if(abstract)$
+$else$
+\makeatletter
+  \long\def\pprintMaketitle{\clearpage
+  \iflongmktitle\if@twocolumn\let\columnwidth=\textwidth\fi\fi
+  \resetTitleCounters
+  \def\baselinestretch{1}%
+  \printFirstPageNotes
+  \begin{center}%
+ \thispagestyle{pprintTitle}%
+   \def\baselinestretch{1}%
+    \Large\@title\par\vskip18pt
+    \normalsize\elsauthors\par\vskip10pt
+    \footnotesize\itshape\elsaddress\par\vskip36pt
+    % \hrule\vskip12pt
+    % \ifvoid\absbox\else\unvbox\absbox\par\vskip10pt\fi
+    % \ifvoid\keybox\else\unvbox\keybox\par\vskip10pt\fi
+    % \hrule\vskip12pt
+    \end{center}%
+  \gdef\thefootnote{\arabic{footnote}}%
+  }
+\makeatother
+$endif$
+
+% make lists work [https://forum.posit.co/t/failing-to-compile-from-latex-pdf/107183/5]
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\ps@pprintTitle}% <cmd>
+  {Preprint submitted to}% <search>
+  {Preimpreso remitido a}% <replace>
+  {}{}% <succes><failure>
+\makeatother
+
+% hyperlinks
+% \hypersetup{
+%   linkcolor=black, % Internal (in-document) links color
+%   urlcolor=MidnightBlue, % URL color
+%   urlbordercolor=MidnightBlue, % URL border color
+%   pdfborderstyle={/S/U/W 0.5} % Border style will be underline of width 0.5
+% }
+
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+
+\journal{$journal$}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{$title$}
+
+$for(author)$
+\author{$author$}
+$endfor$
+
+$if(address)$
+\address{$address$}
+$endif$
+
+$if(journal)$
+\journal{$journal$}
+$endif$
+
+$if(abstract)$
+\abstracttitle{Resumen}
+\keywordtitle{Palabras claves}
+\begin{abstract}
+  $abstract$
+\end{abstract}
+$endif$
+
+$if(keywords)$
+\begin{keyword}
+$keywords$
+\end{keyword}
+$endif$
+
+\end{frontmatter}
+
+$body$
+
+\end{document}

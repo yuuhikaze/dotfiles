@@ -1,0 +1,50 @@
+XF86Audio{RaiseVolume,LowerVolume}
+    volume-controller {0.05+,0.05-}
+
+XF86AudioMute
+    mute-volume
+
+super + shift + m
+    mute-microphone
+
+XF86AudioPlay
+    playerctl play-pause
+
+XF86Calculator
+    qalculate-gtk
+
+XF86MonBrightness{Up,Down}
+    brightness-controller {+5%,5%-}
+
+super + space
+    rofi -show drun
+
+super + t
+    kitty
+
+ctrl + alt + t
+    ocrss
+
+ctrl + alt + s
+    schedule
+
+super + i
+    kitty nvim
+
+ctrl + alt + l
+    screen-lock
+
+super + b
+    librewolf
+
+super + e
+    nemo
+
+super + p
+    slop --highlight --tolerance=0 --color=0.3,0.4,0.6,0.4
+
+ctrl + masculine
+    xkill
+
+~button2
+    echo -n | xsel -n -i

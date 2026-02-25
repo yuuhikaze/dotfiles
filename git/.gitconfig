@@ -1,0 +1,7 @@
+[user]
+	name = yuuhikaze
+	email = yuuhikaze@protonmail.com
+[init]
+	defaultBranch = master
+[pull]
+	ff = only

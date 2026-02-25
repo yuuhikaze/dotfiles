@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# For when keys break
+alias fix-keys="sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys"
+
+# Colorize grep and ls output
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias ols='/usr/bin/ls --color=auto --hyperlink=auto'
+
+# Obtain the most resource-demanding processes
+alias psres='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'
+
+# Cryptography
+alias aes256enc="gpg --symmetric --cipher-algo 'AES256' --s2k-digest-algo 'SHA512'"
+alias ed25519enc="gpg --encrypt --recipient"
+alias ed25519sign="gpg --armor --detach-sign --digest-algo 'SHA512' --local-user"
+
+# Clipboard
+alias glog='xclip -selection clipboard -o | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{0,2})?)?[mGK]//g"'
+alias clip='xclip -selection clipboard'
+alias pclip='xclip -selection clipboard -o'
+alias iclip='xclip -selection clipboard -t image/png -o'
+
+# Programs
+alias ip='ip -color'
+alias s='sudo'
+alias ls='lsd'
+alias la='lsd -A'
+alias ydl='yt-dlp'
+alias ydlx='yt-dlp -x --audio-format=opus --embed-thumbnail --embed-metadata'
+alias ydlh='yt-dlp -f bestvideo+bestaudio/best'
+alias ydlh4="yt-dlp -f 'bestaudio[ext=m4a]+bestvideo[ext=mp4]/best[ext=mp4]'"
+alias vpn='sudo protonvpn'
+alias rcp='rsync -azvh'
+alias v='nvim'
+alias vg='nvim --listen /tmp/godot.pipe'
+alias vc='nvim --clean'
+alias va='find . -maxdepth 1 -type f -exec nvim {} \+'
+alias btm='btm --theme=gruvbox --hide_time --regex'
+alias scrk='screenkey --persist -s small --no-whitespace --bg-color "#1D1D1D" -f "Edu NSW ACT Foundation"'
+alias kxev='xev | awk -F"[ )]+" "/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\\n\", \$5, \$8 }"'
+alias qscan='maim -qs | zbarimg -q --raw - | xclip -selection clipboard -f'
+alias cpick="maim -st 0 | convert - -resize 1x1\! -format '%[pixel:p{0,0}]' info:-"
+alias gitstat='git log --oneline --all --graph --decorate'
+alias virnet='sudo virsh net-start default'
+alias nmls='nmcli device wifi list'
+alias nmc='nmcli device wifi connect'
+alias nme='nmcli connection edit'
+alias nmr='nmcli device wifi rescan'
+alias kblayout='gkbd-keyboard-display -l'
+alias wtchmouse='watch -t -n 0.0001 xdotool getmouselocation'
+alias batper='cat /sys/class/power_supply/BAT0/capacity'
+alias batstat='cat /sys/class/power_supply/BAT0/status'
+alias tp='trash-put'           # Trash files and directories.
+alias te='trash-empty'         # Empty the trashcan(s).
+alias tl='trash-list'          # List trashed files.
+alias tre='trash-restore'      # Restore a trashed file.
+alias trm='trash-rm'           # Remove individual files from the trashcan.
+alias cppcmp='g++ -std=c++11 -O2 -Wall'
+alias mpl='mpv --no-video --loop'
+alias mplp='mpv --no-video --loop-playlist'
+alias btw='fastfetch'
+# alias matlab='docker run -it --rm -p 8888:8888 --shm-size=512M -v "/mnt/Data/short-files/matlab-data:/home/matlab/Documents/MATLAB" "6d61746c61622b73696d756c696e6b2b7369676e616c5f70726f63657373696e675f746f6f6c626f782b67756964652b636f6e74726f6c5f73797374656d5f746f6f6c626f78:r2025a" -browser'
+alias matlab='docker run -it --rm -p 8888:8888 --shm-size=512M -v "/mnt/Data/short-files/matlab-data:/home/matlab/Documents/MATLAB" "6d61746c61622b73696d756c696e6b2b7369676e616c5f70726f63657373696e675f746f6f6c626f782b67756964652b636f6e74726f6c5f73797374656d5f746f6f6c626f782b73796d626f6c69635f6d6174680a:r2025a" -browser'
+alias k='kubectl'
+alias tsky='tgpt --provider=sky -q --preprompt "USE dollar notation for math environments"'
+alias tphind='tgpt --provider=phind -q'
+alias tmphtml='pandoc --template=docs.html --mathjax --embed-resources --css="$HOME/.local/share/pandoc/templates/docs.css" --metadata title=TGPT -t html -i - | base64 -w 0 <&0 | xargs -I{} falkon "data:text/html;base64,{}" 2> /dev/null &'
+# alias tmphtml='pandoc --template=blog.html --mathjax --embed-resources --css="$HOME/.local/share/pandoc/templates/blog.css" --metadata title=TGPT -t html -i - | base64 -w 0 <&0 | xargs -I{} librewolf "data:text/html;base64,{}"'
+# alias tmphtml='pandoc --template=blog.html --mathjax --embed-resources --css="$HOME/.local/share/pandoc/templates/blog.css" --metadata title=TGPT -t html -i - -o /tmp/tgpt.html; surf /tmp/tgpt.html'

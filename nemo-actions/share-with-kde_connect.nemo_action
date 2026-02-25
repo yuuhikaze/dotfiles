@@ -1,0 +1,6 @@
+[Nemo Action]
+Name=Share with KDEConnect
+Comment=Send files to your phone via KDE Connect, now directly through Nemo!
+Exec=ks -f %F
+Selection=notnone
+Extensions=nodirs;

@@ -1,0 +1,6 @@
+[Nemo Action]
+Name=Stamp
+Comment=Rename file to creation date timestamp
+Exec=stamp %F
+Selection=notnone
+Extensions=nodirs;

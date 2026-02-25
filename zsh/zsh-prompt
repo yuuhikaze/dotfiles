@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Autoload vcs and colors
+autoload -Uz vcs_info
+autoload -U colors && colors
+
+# Show git information 
+zstyle ':vcs_info:*' enable git 
+
+# Set up a hook that runs before every prompt
+precmd_vcs_info() { vcs_info; }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+
+# Function to check for untracked files in the directory
+# https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+# 
++vi-git-untracked(){
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+        git status --porcelain | grep '??' &> /dev/null ; then
+        hook_com[staged]+='!' # signify new files with a bang
+    fi
+}
+
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
+
+# Fira Code prompt
+#PROMPT=$'%{\e[1m%}%{\e[38;2;132;176;150m%}%n%"@%m% %{\e[38;2;150;180;175m%} %~% %{\e[38;2;192;197;206m%} ﯟ%{\e[0m%}'
+
+# JetBrains Mono prompt
+# PROMPT=$'%{\e[1m%}%{\e[38;2;132;176;150m%}‹%n%"@%m% ›%{\e[38;2;150;180;175m%} %~% %{\e[38;2;192;197;206m%} %{\e[0m%}'
+
+# Simpler prompt
+precmd() { print -rP "%F{#84B096}%n@%m%f %~ " }
+export PROMPT='\$'
+
+# Show vcs info
+PROMPT+="\$vcs_info_msg_0_ "
