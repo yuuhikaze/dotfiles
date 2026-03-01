@@ -1,0 +1,29 @@
+{
+    // default state for all rules
+    "default": true,
+    // unordered list style
+    "MD004": {
+        "style": "dash"
+    },
+    // indent width
+    "MD007": {
+        "indent": 4
+    },
+    // correct reversed link syntax => ()[] → []()
+    "MD011": false,
+    // spaces after list markers
+    "MD030": {
+        "ul_single": 3,
+        "ul_multi": 3,
+        "ol_single": 2,
+        "ol_multi": 2
+    },
+    // emphasis style
+    "MD049": {
+        "style": "asterisk"
+    },
+    // strong style
+    "MD050": {
+        "style": "asterisk"
+    }
+}

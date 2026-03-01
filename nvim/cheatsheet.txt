@@ -1,0 +1,204 @@
+# MODES
+# normal_mode = "n",
+# insert_mode = "i",
+# visual_mode = "v",
+# visual_block_mode = "x",
+# term_mode = "t",
+# command_mode = "c",
+
+# GENERAL
+# Cursor
+Move cursor to left [i]                                 | <C-h>
+Move cursor to right [i]                                | <C-l>
+Move cursor up [i]                                      | <C-k>
+Move cursor down [i]                                    | <C-j>
+Move cursor to the beggining [i]                        | <C-b>
+Move cursor to the end [i]                              | <C-e>
+
+# Splits
+Split mod                                               | <C-d>
+Go to left split                                        | <C-h>
+Go to right split                                       | <C-l>
+Go to split above                                       | <C-k>
+Go to split below                                       | <C-j>
+
+Resize left split                                       | <C-Left>
+Resize right split                                      | <C-Right>
+Resize split above                                      | <C-Up>
+Resize split below                                      | <C-Down>
+
+Expand split to tab / maximize split                    | <Space>te
+Collapse tab to split / minimize split                  | <Space>tc
+
+# Buffers
+Go to left buffer                                       | <S-h>
+Go to right buffer                                      | <S-l>
+
+Clean buffer [remove trailing whitespace characters]    | <leader>bc
+Delete buffer                                           | <leader>bd
+Create new buffer                                       | <leader>bn
+Create new buffer in a vertical split                   | <leader>bv
+Create new buffer in a vertical split                   | <leader>bh
+Open existent buffer in a vertical split                | <leader>bV
+Open existent buffer in an horizontal split             | <leader>bH
+Turn on buffer comparison                               | <leader>dt
+Compare saved and modified version of buffer            | <leader>dm
+Turn off buffer comparison                              | <leader>do
+Jump to next difference in comparison mode              | <leader>dn
+Jump to previous difference in comparison mode          | <leader>dp
+
+Save buffer [i]                                         | <C-s>
+Save all buffers [i]                                    | <C-a>
+Save buffer                                             | <C-s>
+Save all buffers                                        | <C-a>
+
+# Editor
+Toogle text wrap                                        | <leader>w
+Reset highlighting                                      | <leader><Space>
+
+Toggle text fold                                        | <C-Space>
+Create mark                                             | <leader>x [position]
+
+Show full path                                          | <leader>p
+Count words                                             | <leader>cw
+
+Find pattern                                            | /
+Find pattern forwards (REGEX)                           | 7/
+Find pattern backwards (REGEX)                          | 7?
+Find pattern and replace                                | <leader>r
+Find pattern and replace [v]                            | <leader>r
+Find pattern and replace (REGEX)                        | <leader>R
+Find pattern and replace [v] (REGEX)                    | <leader>R
+
+Close neovim if changes are saved                       | <C-w>
+Close neovim even with unsaved changes                  | <C-x>
+
+# Indentation
+Indent one level [v]                                    | <Tab>
+Remove one indentation level [v]                        | <S-Tab>
+Indent one level                                        | <Tab>
+Remove one indentation level                            | <S-Tab>
+Indent buffer                                           | <leader><Tab>
+
+# Text manipulation
+Move text up                                            | <S-k>
+Move text down                                          | <S-j>
+Join current line with next line                        | <leader>j
+Set kana alternate keymap                               | <Space>lk
+Set russian-jcuken alternate keymap                     | <Space>lr
+Switch between default and alternate keymaps            | <C-6>
+
+# Convenience
+Go to first non whitespace character                    | 0
+Go to first character                                   | =
+Go to next word under cursor                            | #
+Yank all text inside buffer                             | <leader>y
+
+# Commands
+commands → Replace <Tab> with whitespace characters     | :retab
+commands → Set filetype                                 | :setf
+commands → Show history                                 | :<C-f>
+commands → Show key notation                            | :help key-notation
+commands → Set cursor to row and column                 | :call cursor(row, col)
+
+# PLUGIN SPECIFIC
+# cheatseet
+Display keybindings                                     | ?
+
+# cmp/lsp
+cmp → Trigger completion engine                         | <C-S-Space>
+cmp → Close completion engine                           | <C-c>
+cmp → Trigger completion                                | *Smart tab*/<CR>
+cmp → Select next item in list                          | <C-S-j>
+cmp → Select previous item in list                      | <C-S-k>
+cmp → Code actions                                      | <leader>la
+cmp → Rename symbol                                     | <leader>lr
+cmp → Format code                                       | <leader>lf
+cmp → Show documentation                                | <leader>lh
+cmp → Show diagnostic under cursor                      | <leader>ld
+cmp → Navigate to next diagnostic                       | gj
+cmp → Navigate to previous diagnostic                   | gk
+cmp → Go to definition                                  | gd
+cmp → Go to all references                              | gr
+cmp → Go to all implementations                         | gi
+
+# codeium
+codeium → Enable/disable codeium                        | <leader>ct
+codeium → Trigger completion engine                     | <C-Space>
+codeium → Close completion engine                       | <C-c>
+codeium → Trigger completion                            | <Tab>/<C-Tab>
+codeium → Select next item in list                      | <C-S-j>
+codeium → Select previous item in list                  | <C-S-k>
+
+# luasnip
+luasnip → Jump to next field                            | <C-S-l>
+luasnip → Jump to previous field                        | <C-S-h>
+
+# dap
+nvim-dap → Initialize dap                               | <Space>di
+nvim-dap → Toggle dap graphical interface               | <Space>du
+nvim-dap → Evaluate expression                          | <Space>de
+nvim-dap → Run/rerun program                            | <Space>dr
+nvim-dap → Toogle breakpoint                            | <Space>db
+nvim-dap → Step into                                    | <Space>dj
+nvim-dap → Step out                                     | <Space>dk
+nvim-dap → Step over                                    | <Space>dl
+nvim-dap → Terminate program                            | <Space>dt
+nvim-dap → List breakpoints                             | <Space>df
+nvim-dap → List dap commands                            | <Space>dc
+
+# Telescope
+Telescope → Find files                                  | <leader>ff
+Telescope → Display old files                           | <leader>fo
+Telescope → Find text (live grep)                       | <leader>fw
+Live grep → Quote and add postfix                       | <C-q>
+Telescope → Change directory                            | <leader>fz
+Telescope → Select item                                 | <leader><Tab>
+Telescope → Select next item                            | <Tab>
+Telescope → Select previous item                        | <S-Tab>
+Telescope → Move cursor up                              | <C-k>
+Telescope → Move cursor down                            | <C-j>
+Telescope → Open selected item                          | <S-CR>
+Telescope → Open selected items                         | <CR>
+Telescope → Open selected items in vertical splits      | <C-v>
+Telescope → Open selected items in horizontal splits    | <C-h>
+
+# vim-cutlass
+Cut word                                                | m [position]
+Cut selected text [v]                                   | m
+Cut line                                                | mm
+Cut till the end from cursor position                   | M
+
+# comment
+Single-line comment                                     | <leader>cs
+Multi-line comment                                      | <leader>cm
+Single-line comment [v]                                 | <leader>cs
+Multi-line comment [v]                                  | <leader>cm
+
+# hop
+Jump to nearest character                               | f
+Jump to character                                       | s
+Jump to word                                            | S
+
+# nvim-tree
+nvim-tree → Toggle file tree                            | <leader>e
+nvim-tree → Toggle help                                 | g?
+nvim-tree → Open file in vertical split                 | v
+nvim-tree → Open file in horizontal split               | h
+nvim-tree → Open file                                   | l
+nvim-tree → Close node                                  | n
+
+# zen-mode
+Toggle zen mode                                         | <leader>z
+
+# rooter
+Toggle autochdir                                        | <C-p>
+
+# Tagbar
+Toggle tagbar                                           | <C-t>
+
+# undotree
+Display local history                                   | <C-u>
+
+# nvim-ufo
+Generate folds                                          | <C-f>
