@@ -34,8 +34,8 @@ local servers = {
     "pbls",
     "lemminx",
     "phpactor",
-    "r_language_server",
-    "ols",
+    -- "r_language_server", -- such a hassle
+    -- "ols",
     "dockerls",
     "docker_compose_language_service",
     "gopls",
