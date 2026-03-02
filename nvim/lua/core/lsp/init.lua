@@ -16,7 +16,7 @@ local servers = {
     "basedpyright",
     "ruff", -- Fast Python linter/formatter (native LSP server)
     "clangd",
-    "csharp_ls",
+    "omnisharp",
     "html",
     "cssls",
     "tailwindcss",
