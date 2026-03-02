@@ -1,0 +1,229 @@
+# competitest.nvim Submit System - Project Status
+
+## Overview
+
+3-PR strategy for adding Kattis submission functionality to competitest.nvim:
+- **PR #1 (DONE)**: Submit provider system with Kattis implementation
+- **PR #2 (TODO)**: Vim documentation generation + improved structure
+- **PR #3 (TODO)**: Test infrastructure with plenary.nvim
+
+---
+
+## ✅ PR #1: Submit Provider System (COMPLETED)
+
+**Branch:** feature/submit
+**Status:** Merged to fork, PR #82 submitted to upstream (https://github.com/xeluxee/competitest.nvim/pull/82)
+
+### What Was Built
+
+**Generic Submit Provider System** - Extensible architecture for competitive programming judges
+
+**Features:**
+- Provider interface with async callbacks (submit, submit_multiple, get_status)
+- Kattis provider implementation:
+  - `.kattisrc` parsing (supports both `:` and `=` delimiters)
+  - Language auto-detection from file extension with fallback
+  - Problem ID from filename (lowercase)
+  - Mainclass detection for Java/Kotlin/Scala
+  - Multi-file submissions via file picker (snacks.nvim/nui.nvim)
+  - Live status polling with test case progress
+- Commands: `:CompetiTest submit [provider]`, `:CompetiTest submit_multiple [provider]`
+- Notification flow: "Submitting..." → "Submitted! - View: URL" → "Accepted" / "Wrong Answer (failed X/Y)"
+- Async/non-blocking: All HTTP via vim.loop.spawn(), no vim.fn.system()
+- Production-ready: QA tested, proper resource cleanup (timers, pipes, handles)
+
+**Files Added:**
+- `lua/competitest/submit/init.lua` - Provider registry and orchestration
+- `lua/competitest/submit/ui.lua` - File picker UI
+- `lua/competitest/submit/providers/kattis.lua` - Kattis implementation
+- Updates to: `commands.lua`, `config.lua`, `utils.lua`
+
+**Repository:** https://github.com/yuuhikaze/competitest.nvim (fork)
+
+---
+
+## 📝 PR #2: Vim Documentation Generation (TODO)
+
+**Branch:** feature/vim-docs (not started)
+**Goal:** Auto-generate :help docs from README.md, improve plugin structure
+
+### Planned Changes
+
+1. **Documentation Generation Workflow:**
+   - GitHub Action using panvimdoc
+   - Convert README.md → doc/competitest.txt
+   - Auto-commit docs on push to main
+
+2. **Documentation Improvements:**
+   - Add `:help competitest-submit` section
+   - Document Kattis configuration (.kattisrc setup)
+   - Examples for custom submit providers
+   - Configuration reference for submit system
+
+3. **Structure Improvements:**
+   - Ensure submit/ is properly organized
+   - Add provider interface documentation
+   - Better separation of config validation
+
+4. **Add `.github/workflows/vimdoc.yml`**
+
+### Why This Matters
+- Addresses roadmap item for vim documentation
+- Makes submit feature discoverable via :help
+- Standard for Neovim plugins
+
+---
+
+## 🧪 PR #3: Test Infrastructure (TODO)
+
+**Branch:** feature/tests (not started)
+**Goal:** Add comprehensive test suite using plenary.nvim
+
+### Planned Changes
+
+1. **Test Directory Structure:**
+   ```
+   tests/
+   ├── competitest/
+   │   ├── submit_spec.lua        # Provider interface tests
+   │   ├── kattis_spec.lua        # Kattis provider tests
+   │   └── config_spec.lua        # Config parsing tests
+   └── minimal_init.lua           # Load plenary + competitest
+   ```
+
+2. **Test Coverage:**
+   - Config parsing (.kattisrc with : and = delimiters)
+   - Language detection (file extension → Kattis language)
+   - Problem ID extraction from filename
+   - Mainclass guessing for Java/Kotlin/Scala
+   - Provider interface validation (setup, can_submit, submit)
+   - Edge cases: missing .kattisrc, invalid credentials, network errors
+
+3. **Makefile Targets:**
+   - `make test` - run all tests
+   - `make test-submit` - run submit tests only
+   - `make lint` - run stylua
+
+4. **GitHub Action for CI:**
+   - `.github/workflows/test.yml`
+   - Run tests on PR
+   - Lint with stylua
+   - Matrix: Neovim stable/nightly
+
+### Why This Matters
+- Catch regressions as provider system evolves
+- Validate edge cases (parser, language detection)
+- Enable confident refactoring
+- Standard for quality Neovim plugins
+
+---
+
+## 🔮 Future Enhancements (Post-PR #3)
+
+### 1. Auto-detect Submit Provider from Metadata
+
+**Current:** Explicit provider selection: `:CompetiTest submit kattis`
+
+**Future:** Automatic detection from competitive-companion metadata
+
+**How it works:**
+1. When receiving problems via competitive-companion, persist metadata alongside testcases:
+   - `url`: "https://open.kattis.com/problems/hello"
+   - `group`: "Kattis - Practice"
+   - `problem_id`: extracted from URL
+
+2. Store in testcases file or .competitest.lua:
+   ```lua
+   {
+     metadata = {
+       url = "https://open.kattis.com/problems/hello",
+       judge = "Kattis",
+       problem_id = "hello",
+     },
+     testcases = { ... }
+   }
+   ```
+
+3. When user runs `:CompetiTest submit` (no provider specified):
+   - Load stored metadata
+   - Each provider implements `detect(metadata) -> boolean`
+     - Kattis: check if url contains "kattis.com"
+     - Codeforces: check if url contains "codeforces.com"
+   - First matching provider auto-selected
+   - Fallback: prompt user if no match
+
+**Benefits:**
+- Seamless workflow: receive → code → test → submit (no manual provider selection)
+- Problem ID automatically available
+- Works great with competitive-companion integration
+
+**Implementation:**
+- Extend testcases storage format to include optional metadata field
+- Update receive.lua to persist CCTask metadata
+- Add `Provider.detect()` to interface in submit/init.lua
+- Backwards compatible: if no metadata, fall back to explicit selection
+
+### 2. Additional Providers
+
+**Codeforces:**
+- Login via web form or API
+- Submit with session cookies
+- Handle virtual contests
+
+**AtCoder:**
+- Similar to Codeforces
+- Language detection from AtCoder's list
+
+**USACO:**
+- Submit via web form
+- Handle training pages vs contests
+
+**LeetCode:**
+- GraphQL API integration
+- Handle premium problems
+
+### 3. Other Ideas
+
+- Interactive problem support (stdin/stdout communication)
+- Submission history browser (`:CompetiTest submissions`)
+- Contest mode (submit multiple problems sequentially)
+- Custom test cases before submit (validate locally first)
+
+---
+
+## Testing Your Fork
+
+Replace competitest.nvim config with local fork:
+
+```lua
+-- For lazy.nvim
+{
+  dir = '/home/user/plugin/kattis.nvim/misc/competitest.nvim',
+  name = 'competitest.nvim',
+  dependencies = 'MunifTanjim/nui.nvim',
+  config = function()
+    require('competitest').setup({
+      submit = {
+        kattis = {
+          config_file = vim.fn.expand('~/.kattisrc'),  -- optional, auto-detected
+        },
+      },
+    })
+  end
+}
+```
+
+Then test:
+- `:CompetiTest submit kattis` - single file
+- `:CompetiTest submit_multiple kattis` - multi-file picker
+
+---
+
+## Implementation Timeline
+
+1. ✅ **PR #1** (DONE): Core functionality - users can submit to Kattis now
+2. ⏳ **PR #3** (NEXT): Tests - validate PR #1, prevent regressions
+3. ⏳ **PR #2** (AFTER): Docs - polish, addresses maintainer roadmap item
+4. 🔮 **Future**: Metadata auto-detection, more providers
+
+**Current Status:** Waiting for upstream review on PR #82

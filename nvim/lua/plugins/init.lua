@@ -74,7 +74,7 @@ require("lazy").setup({
         end
     },
     {
-        dir = '/home/user/plugin/kattis.nvim/misc/competitest.nvim',
+        dir = 'persist/home/user/dotfiles/nvim-plugins/competitest.nvim',
         name = 'competitest.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
         lazy = false,

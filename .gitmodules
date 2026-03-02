@@ -1,0 +1,4 @@
+[submodule "nvim-plugins/competitest.nvim"]
+	path = nvim-plugins/competitest.nvim
+	url = https://github.com/yuuhikaze/competitest.nvim
+	branch = feature/submit
