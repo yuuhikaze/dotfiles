@@ -16,7 +16,9 @@ local parsers = {
     "toml",
     "yaml",
     "markdown",
-    "vim",
+    -- https://www.reddit.com/r/neovim/comments/1psyhxj/neovim_treesitter_error_invalid_node_type_when/
+    -- "vim",
+    -- "vimdoc",
     "slint",
     "bash",
     "lua",
@@ -28,7 +30,7 @@ local parsers = {
     "go",
     "gomod",
     "gosum",
-    "sql",
+    -- "sql",
     "smali",
     "svelte",
     "proto",
@@ -53,21 +55,15 @@ local parsers = {
     "dart",
 }
 
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter").setup({
     ensure_installed = parsers,
-    highlight = {
-        enable = true,
-        use_languagetree = true,
-        additional_vim_regex_highlighting = true,
-    },
-    indent = { enable = true },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<C-S-space>",
-            node_incremental = "<C-S-space>",
-            scope_incremental = false,
-            node_decremental = "<bs>",
-        },
-    },
-}
+})
+
+vim.treesitter.language.register("bash", "zsh")
+
+-- Enable treesitter-based features
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+    end,
+})

@@ -17,9 +17,9 @@ require("competitest").setup {
         python = { exec = "python", args = { "$(FNAME)" } },
         java = { exec = "java", args = { "$(FNOEXT)" } },
     },
-    submit = {
+    --[[ submit = {
         kattis = {
             config_file = vim.fn.expand('~/.kattisrc'),
         },
-    },
+    }, ]]
 }

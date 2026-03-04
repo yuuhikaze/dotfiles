@@ -27,7 +27,7 @@ local servers = {
     "vimls",
     "bashls",
     "lua_ls",
-    "marksman", -- `root_markers`: { ".marksman.toml", ".git" }
+    -- "marksman", -- `root_markers`: { ".marksman.toml", ".git" }
     "matlab_ls",
     "slint_lsp",
     "glsl_analyzer",

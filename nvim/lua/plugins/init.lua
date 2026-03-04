@@ -73,24 +73,24 @@ require("lazy").setup({
             require 'plugins.config.blink'
         end
     },
-    {
-        dir = '/persist/home/user/dotfiles/nvim-plugins/competitest.nvim',
-        name = 'competitest.nvim',
-        dependencies = 'MunifTanjim/nui.nvim',
-        lazy = false,
-        --[[ config = function()
-            require('competitest').setup({
-                submit = {
-                    kattis = {
-                        config_file = vim.fn.expand('~/.kattisrc'),
-                    },
-                },
-            })
-        end ]]
-        config = function()
-            require 'plugins.config.competitest'
-        end
-    },
+    -- {
+    --     dir = '/persist/home/user/dotfiles/nvim-plugins/competitest.nvim',
+    --     name = 'competitest.nvim',
+    --     dependencies = 'MunifTanjim/nui.nvim',
+    --     lazy = false,
+    --     --[[ config = function()
+    --         require('competitest').setup({
+    --             submit = {
+    --                 kattis = {
+    --                     config_file = vim.fn.expand('~/.kattisrc'),
+    --                 },
+    --             },
+    --         })
+    --     end ]]
+    --     config = function()
+    --         require 'plugins.config.competitest'
+    --     end
+    -- },
     -- Debugger
     { 'mfussenegger/nvim-dap' },
     {
@@ -119,13 +119,13 @@ require("lazy").setup({
             require 'plugins.config.molten'
         end
     },
-    {
+    --[[ {
         '3rd/image.nvim',
         ft = { "python", "markdown", "quarto" },
         config = function()
             require 'plugins.config.image'
         end
-    },
+    }, ]]
     {
         'quarto-dev/quarto-nvim',
         ft = { "quarto", "markdown" },
@@ -197,7 +197,7 @@ require("lazy").setup({
         end
     },
     -- Noice.nvim (better cmdline and error experience)
-    {
+    --[[ {
         'folke/noice.nvim',
         event = "VeryLazy",
         dependencies = {
@@ -207,7 +207,7 @@ require("lazy").setup({
         config = function()
             require 'plugins.config.noice'
         end
-    },
+    }, ]]
     {
         'subnut/nvim-ghost.nvim',
         cmd = "GhostStart"
