@@ -1,2 +1,8 @@
 # Neovim Lazy Lock
 lazy-lock.json
+# Syncthing Marker Folder
+.stfolder/
+# Nemo File Manager Metadata
+nemo-actions/bookmark-metadata
+# Home Manger Backup Files
+*hbak
